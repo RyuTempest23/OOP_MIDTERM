@@ -90,6 +90,7 @@ class EmployeeManagementSystem:
         self.part_id = 1
         self.full_id = 1
         self.running = True
+        self.load_data()
 
     # For Decoration
     def decorate(self, text):

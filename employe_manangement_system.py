@@ -152,14 +152,20 @@ class EmployeeManagementSystem:
 
     def add_employee(self):
         while True:
-            print("\n1. Part-Time Employee")
+            print("\n===== Add Employee =====\n")
+            print("1. Part-Time Employee")
             print("2. Full-Time Employee")
+            print("3. Back to Main Menu")
 
-            choice = self.valid_integer("\nChoose a number (1 or 2): ")
+            choice = self.valid_integer("\nChoose a number: ")
 
-            if choice not in (1, 2):
-                print("\nPlease select only between 1 or 2.")
+            if choice not in (1, 2, 3):
+                print("\nPlease select only between 1-3.")
                 continue
+
+            if choice == 3:
+                print("\nReturning to main menu...")
+                break
 
             name = input("\nEnter Name: ").strip().title()
             age = self.valid_integer("Enter Age: ")
@@ -183,12 +189,11 @@ class EmployeeManagementSystem:
                 self.full_time_id_counter += 1
 
             print("\nEmployee added successfully!")
-            break
 
 
     def view_employee(self):
         while True:
-            print("\n===== View Employees =====")
+            print("\n===== View Employees =====\n")
             print("1. View All Employees (Part-Time & Full-Time)")
             print("2. View Part-Time Employees")
             print("3. View Full-Time Employees")
@@ -239,96 +244,110 @@ class EmployeeManagementSystem:
 
 
     def update_employee(self):
-        print("1. Part-Time Employee")
-        print("2. Full-Time Employee")
+        while True:
+            print("\n===== Update Employee =====\n")
+            print("1. Part-Time Employee")
+            print("2. Full-Time Employee")
+            print("3. Back to Main Menu")
 
-        choice = self.valid_integer("Choose a number (1 or 2): ")
+            choice = self.valid_integer("\nChoose a number: ")
 
-        if choice not in (1, 2):
-            print("Please select only between 1 or 2.")
-            return
+            if choice not in (1, 2, 3):
+                print("Please select only between 1-3.")
+                return
+            
+            if choice == 3:
+                print("\nReturning to main menu...")
+                break
 
-        emp_type = "Part-Time Employees" if choice == 1 else "Full-Time Employees"
-        emp_id = self.valid_integer("Enter Employee ID: ")
+            emp_type = "Part-Time Employees" if choice == 1 else "Full-Time Employees"
+            emp_id = self.valid_integer("Enter Employee ID: ")
 
-        # Check if employee exists
-        if emp_id not in self.employees[emp_type]:
-            print("Employee ID not found.")
-            return
+            # Check if employee exists
+            if emp_id not in self.employees[emp_type]:
+                print("Employee ID not found.")
+                return
 
-        emp = self.employees[emp_type][emp_id]
+            emp = self.employees[emp_type][emp_id]
 
-        print("\nLeave blank to keep the current value.\n")
+            print("\nLeave blank to keep the current value.\n")
 
-        # Common attributes
-        new_name = input(f"New Name ({emp.get_name()}): ").strip().title() or emp.get_name()
-        new_age = input(f"New Age ({emp.get_age()}): ").strip() or emp.get_age()
-        new_gender = input(f"New Gender ({emp.get_gender()}): ").strip().title() or emp.get_gender()
-        new_position = input(f"New Position ({emp.get_position()}): ").strip().title() or emp.get_position()
-        new_salary = input(f"New Salary ({emp.get_salary()}): ").strip() or emp.get_salary()
+            # Common attributes
+            new_name = input(f"New Name ({emp.get_name()}): ").strip().title() or emp.get_name()
+            new_age = input(f"New Age ({emp.get_age()}): ").strip() or emp.get_age()
+            new_gender = input(f"New Gender ({emp.get_gender()}): ").strip().title() or emp.get_gender()
+            new_position = input(f"New Position ({emp.get_position()}): ").strip().title() or emp.get_position()
+            new_salary = input(f"New Salary ({emp.get_salary()}): ").strip() or emp.get_salary()
 
-        # Apply updates safely
-        emp.set_name(new_name)
-        if str(new_age).isdigit():
-            emp.set_age(int(new_age))
-        emp.set_gender(new_gender)
-        emp.set_position(new_position)
-        try:
-            emp.set_salary(float(new_salary))
-        except ValueError:
-            print("Invalid salary input, keeping old value.")
+            # Apply updates safely
+            emp.set_name(new_name)
+            if str(new_age).isdigit():
+                emp.set_age(int(new_age))
+            emp.set_gender(new_gender)
+            emp.set_position(new_position)
+            try:
+                emp.set_salary(float(new_salary))
+            except ValueError:
+                print("Invalid salary input, keeping old value.")
 
-        # Specific fields per employee type
-        if emp_type == "Part-Time Employees":
-            new_hourly_rate = input(f"New Hourly Rate ({emp.get_hourly_rate()}): ").strip() or emp.get_hourly_rate()
-            new_hours_worked = input(f"New Hours Worked ({emp.get_hours_worked()}): ").strip() or emp.get_hours_worked()
+            # Specific fields per employee type
+            if emp_type == "Part-Time Employees":
+                new_hourly_rate = input(f"New Hourly Rate ({emp.get_hourly_rate()}): ").strip() or emp.get_hourly_rate()
+                new_hours_worked = input(f"New Hours Worked ({emp.get_hours_worked()}): ").strip() or emp.get_hours_worked()
 
-            if str(new_hourly_rate).replace('.', '', 1).isdigit():
-                emp.set_hourly_rate(float(new_hourly_rate))
-            if str(new_hours_worked).isdigit():
-                emp.set_hours_worked(int(new_hours_worked))
+                if str(new_hourly_rate).replace('.', '', 1).isdigit():
+                    emp.set_hourly_rate(float(new_hourly_rate))
+                if str(new_hours_worked).isdigit():
+                    emp.set_hours_worked(int(new_hours_worked))
 
-        else:  
-            new_bonus = input(f"New Monthly Bonus ({emp.get_monthly_bonus_pay()}): ").strip() or emp.get_monthly_bonus_pay()
-            if str(new_bonus).replace('.', '', 1).isdigit():
-                emp.set_monthly_bonus_pay(float(new_bonus))
+            else:  
+                new_bonus = input(f"New Monthly Bonus ({emp.get_monthly_bonus_pay()}): ").strip() or emp.get_monthly_bonus_pay()
+                if str(new_bonus).replace('.', '', 1).isdigit():
+                    emp.set_monthly_bonus_pay(float(new_bonus))
 
-        print("\nEmployee updated successfully!\n")
+            print("\nEmployee updated successfully!\n")
 
 
     def delete_employee(self):
-        print("1. Delete All Employee's Records")
-        print("2. Delete All Part-Time Employees Records")
-        print("3. Delete All Full-Time Employees Records")
-        print("4. Delete Employee by ID (Individual)")
+        while True:
+            print("\n===== Delete Employee =====\n")
+            print("1. Delete All Employee's Records")
+            print("2. Delete All Part-Time Employees Records")
+            print("3. Delete All Full-Time Employees Records")
+            print("4. Delete Employee by ID (Individual)")
+            print("5. Back to Main Menu")
 
-        choice = self.valid_integer("Choose a number: ")
+            choice = self.valid_integer("\nChoose a number: ")
 
-        if choice == 1:
-            self.employees["Part-Time Employees"].clear()
-            self.employees["Full-Time Employees"].clear()
-            print("All employees deleted.")
-        elif choice == 2:
-            self.employees["Part-Time Employees"].clear()
-            print("All part-time employees deleted.")
-        elif choice == 3:
-            self.employees["Full-Time Employees"].clear()
-            print("All full-time employees deleted.")
-        elif choice == 4:
-            emp_type_choice = self.valid_integer("\n1. Part-Time\n2. Full-Time\nChoose: ")
-            emp_type = "Part-Time Employees" if emp_type_choice == 1 else "Full-Time Employees"
-            emp_id = self.valid_integer("Enter Employee ID: ")
-            if emp_id in self.employees[emp_type]:
-                del self.employees[emp_type][emp_id]
-                print("Employee deleted.")
+            if choice == 1:
+                self.employees["Part-Time Employees"].clear()
+                self.employees["Full-Time Employees"].clear()
+                print("\nAll employees deleted.")
+            elif choice == 2:
+                self.employees["Part-Time Employees"].clear()
+                print("\nAll part-time employees deleted.")
+            elif choice == 3:
+                self.employees["Full-Time Employees"].clear()
+                print("\nAll full-time employees deleted.")
+            elif choice == 4:
+                print("\n===== Delete By ID =====\n")
+                emp_type_choice = self.valid_integer("1. Part-Time\n2. Full-Time\n\nChoose: ")
+                emp_type = "Part-Time Employees" if emp_type_choice == 1 else "Full-Time Employees"
+                emp_id = self.valid_integer("\nEnter Employee ID: ")
+                if emp_id in self.employees[emp_type]:
+                    del self.employees[emp_type][emp_id]
+                    print("\nEmployee deleted.")
+                else:
+                    print("\nEmployee not found.")
+            elif choice == 5:
+                print("\nReturning to main menu...")
+                break
             else:
-                print("Employee not found.")
-        else:
-            print("Invalid choice!")
+                print("\nInvalid choice! Please select between 1-5")
 
 
     def exit_program(self):
-        print("Thank you for using my system. Goodbye!")
+        print("\nThank you for using my system. Goodbye!")
         self.not_done = False
 
 

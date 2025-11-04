@@ -1,0 +1,25 @@
+{
+    "Part-Time Employees": {
+        "1": {
+            "Type": "Part-Time",
+            "Name": "John",
+            "Age": 25,
+            "Gender": "Male",
+            "Position": "Clerk",
+            "Salary": 15000.25,
+            "Hourly Rate": 2.5,
+            "Hours Worked": 7
+        }
+    },
+    "Full-Time Employees": {
+        "1": {
+            "Type": "Full-Time",
+            "Name": "Jack",
+            "Age": 40,
+            "Gender": "Male",
+            "Position": "Manager",
+            "Salary": 40000.0,
+            "Monthly Bonus Pay": 15000.0
+        }
+    }
+}

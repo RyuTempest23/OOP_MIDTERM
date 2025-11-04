@@ -4,14 +4,14 @@ from abc import ABC, abstractmethod
 # Abstraction: using abc module
 class Employee(ABC):
     def __init__(self, name, age, gender, position, salary):
-        # Private attributes
+        # Private attributes (Encapsulation)
         self.__name = name
         self.__age = age
         self.__gender = gender
         self.__position = position
         self.__salary = salary
 
-    # Encapsulation: using getters/setters
+    # Using getters/setters to access private attributes
     def get_name(self):
         return self.__name
 
@@ -157,9 +157,7 @@ class EmployeeManagementSystem:
                 print("\nPlease select only between 1–3.")
                 continue
 
-            if choice == 3:
-                print("\nReturning to main menu...")
-                break
+            if choice == 3: break
 
             name = input("\nEnter Name: ").strip().title()
             age = self.valid_integer("Enter Age: ")
@@ -215,7 +213,6 @@ class EmployeeManagementSystem:
                 case 3:
                     self._display_records("Full-Time Employees", "Full-Time")
                 case 4:
-                    print("\nReturning to main menu...")
                     break
                 case _:
                     print("Invalid choice! Please select between 1–4.")
@@ -246,9 +243,7 @@ class EmployeeManagementSystem:
                 print("Please select only between 1–3.")
                 return
 
-            if choice == 3:
-                print("\nReturning to main menu...")
-                break
+            if choice == 3: break
 
             emp_type = "Part-Time Employees" if choice == 1 else "Full-Time Employees"
             emp_id = self.valid_integer("Enter Employee ID: ")
@@ -319,8 +314,7 @@ class EmployeeManagementSystem:
                     print("\nAll full-time employees deleted.")
                 case 4:
                     self._delete_by_id()
-                case 5:
-                    print("\nReturning to main menu...")
+                case 5: 
                     break
                 case _:
                     print("\nInvalid choice! Please select between 1–5.")
@@ -366,5 +360,4 @@ class EmployeeManagementSystem:
 
 # Main program entry
 if __name__ == "__main__":
-    main = EmployeeManagementSystem()
-    main.menu()
+    EmployeeManagementSystem().menu()

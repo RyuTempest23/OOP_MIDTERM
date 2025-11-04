@@ -334,6 +334,7 @@ class EmployeeManagementSystem:
                 emp_type_choice = self.valid_integer("1. Part-Time\n2. Full-Time\n\nChoose: ")
                 emp_type = "Part-Time Employees" if emp_type_choice == 1 else "Full-Time Employees"
                 emp_id = self.valid_integer("\nEnter Employee ID: ")
+                
                 if emp_id in self.employees[emp_type]:
                     del self.employees[emp_type][emp_id]
                     print("\nEmployee deleted.")

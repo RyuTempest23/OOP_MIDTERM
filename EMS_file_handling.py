@@ -6,6 +6,7 @@ from abc import ABC, abstractmethod
 # Abstract Class (Abstraction)
 class Employee(ABC):
     def __init__(self, name, age, gender, position, salary):
+        # Private attributes (Encapsulation)
         self.__name = name
         self.__age = age
         self.__gender = gender
@@ -36,6 +37,7 @@ class Employee(ABC):
         else:
             print("\n\t[!] Salary must be positive!")
 
+    # Abstract method (must be implemented by subclasses)
     @abstractmethod
     def display_info(self):
         pass
@@ -48,6 +50,7 @@ class PartTimeEmployee(Employee):
         self.__hourly_rate = hourly_rate
         self.__hours_worked = hours_worked
 
+    # Overriding display_info() (Polymorphism)
     def display_info(self):
         return {
             "Type": "Part-Time",

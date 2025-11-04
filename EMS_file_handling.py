@@ -1,4 +1,4 @@
-import json
+import json, os
 from pathlib import Path
 from abc import ABC, abstractmethod
 
@@ -116,11 +116,20 @@ class EmployeeManagementSystem:
     # File Handling
     def load_data(self):
         if self.path.exists():
-            try:
-                with open(self.path, "r") as f:
-                    self.employees = json.load(f)
-            except json.JSONDecodeError:
-                print("\n\t[!] employees.json is empty or corrupted. Starting fresh.")
+            with open(self.path, "r") as f:
+                self.employees = json.load(f)
+
+            # Update part-time and full-time IDs based on existing data
+            part_ids = self.employees["Part-Time Employees"].keys()
+            full_ids = self.employees["Full-Time Employees"].keys()
+
+            if part_ids:
+                self.part_id = max(map(int, part_ids)) + 1
+            if full_ids:
+                self.full_id = max(map(int, full_ids)) + 1
+        else:
+            self.save_data()
+
 
     def save_data(self):
         with open(self.path, "w") as f:
